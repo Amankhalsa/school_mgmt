@@ -35,3 +35,4 @@ Please execute "npm install && npm run dev" to build your assets.
 in my case =>DB_DATABASE=school
 
 	php artisan migrate
+
