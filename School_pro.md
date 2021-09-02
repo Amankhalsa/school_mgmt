@@ -36,3 +36,104 @@ in my case =>DB_DATABASE=school
 
 	php artisan migrate
 
+# Next Add  Theam on laravel project 
+* Default Routes :
+
+		Route::get('/', function () {
+		return view('welcome');
+		});
+		
+		Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+		// return view('dashboard');
+		return view('admin.index');
+		})->name('dashboard');
+
+		//Admin logout
+		Route::get('admin/logout',[AdminCon::class,'logout'])->name('admin.logout');
+
+
+* First sigments all header footer and slider (admin section )
+		
+		@yield('title') - Admin //for title 
+		@include('admin.body.header')
+
+		@include('admin.body.sidebar')
+
+		@yield('admin')
+
+		@include('admin.body.footer')
+
+* in index page (content section)
+		
+		@extends('admin.admin_master')
+		@section('title', 'Content')
+		@section('admin')
+		//Add content 
+		@endsection
+* Second make a new folder then in this new folder create new controller 
+* Then use in web.php like this :
+
+		use App\Http\Controllers\Backend\UserCon;
+
+# in web routes  make a prefix and create user group
+
+		//User Manage ment all routes 
+		Route::prefix('users')->group(function(){
+		// 1st Vuew User 
+		Route::get('/view',[UserCon::class,'user_view'])->name('user.view');
+		});
+
+# Controller code  example:
+
+    public function user_view(){
+    		// $allData= User::all();
+    	//Another way :->
+    	$data['allData']=User::all();
+    		// return view('backend.user.view_user',compact('allData'));
+    	//New fromat->
+    		return view('backend.user.view_user',$data);
+    }
+
+# in the admin folder  :
+* make a new folder backend then for user create user folder Then create new file here for return 
+
+# 3. View User Data from Database
+* 1st copy all data from user table 
+* 2nd add new field in migration file =>
+	
+		$table->string('usertype')->nullable();
+
+* for remove user table run this 
+
+		php artisan migrate:rollback 
+
+* Then run  for create user table in DB
+
+			php artisan migrate 
+
+* in the view page use this example code for show all user list 
+
+		@foreach($allData as $key => $user)
+		<tr>
+		<td>{{$key+1 }} </td>
+		<td>{{$user->usertype}}</td>
+		<td>{{$user->name}}</td>
+		<td>{{$user->email}}</td>
+		<td>
+		<a href="" class="btn btn-info">Edit</a>
+		<a href="" class="btn btn-danger">Delete</a>
+		</td>
+		</tr>
+		@endforeach	
+ 
+# For add user create new fiel in user folder 
+		href="{{route('users.add')}}" //for button 
+
+		@extends('admin.admin_master')
+		@section('title', 'Add user')
+		@section('admin')
+		// add form here 
+		@endsection
+
+# 5. Insert User Data in Database Part 2
+

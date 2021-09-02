@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminCon;
+use App\Http\Controllers\Backend\UserCon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,22 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 //Admin logout
 Route::get('admin/logout',[AdminCon::class,'logout'])->name('admin.logout');
+
+
+//User Manage ment all routes 
+
+
+Route::prefix('users')->group(function(){
+
+	// 1st Vuew User 
+
+Route::get('/view',[UserCon::class,'user_view'])->name('user.view');
+//add User
+
+Route::get('/add',[UserCon::class,'user_add'])->name('users.add');
+
+//store user 
+Route::post('/store',[UserCon::class,'user_store'])->name('user.store');
+
+
+});
