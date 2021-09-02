@@ -17,7 +17,10 @@ use App\Http\Controllers\Backend\UserCon;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('auth.login');
+
+    
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -44,6 +47,7 @@ Route::get('/add',[UserCon::class,'user_add'])->name('users.add');
 
 //store user 
 Route::post('/store',[UserCon::class,'user_store'])->name('user.store');
-
+//edit user 
+Route::get('/edit/{id}',[UserCon::class,'user_edit'])->name('user.edit');
 
 });

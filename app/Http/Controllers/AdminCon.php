@@ -9,7 +9,13 @@ class AdminCon extends Controller
     //
     public function logout(){
     	Auth::logout();
-    	return redirect()->route('login');
+		
+		$notification = array(
+		'message' => 'User logout successfully',
+		'alert-type' => 'success'
+		);
+
+    	return redirect()->route('login')->with($notification);
 
     }
 }
