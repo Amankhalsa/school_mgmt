@@ -57,4 +57,33 @@ class UserCon extends Controller
             $editdata=User::find($id);
             return view('backend.user.edit_user',compact('editdata'));
     } 
+//update user detail 
+    public function user_update(Request $request, $id){
+       $data = User::find($id);
+        $data->usertype = $request->usertype;
+        $data->name = $request->name;
+        $data->email = $request->email;
+
+        $data->save();
+        $notification = array(
+        'message' => 'User updated successfully',
+        'alert-type' => 'info'
+        );
+        return redirect()->route('user.view')->with($notification);
+
+
+    }
+
+    // delete user 
+    public function user_delete($id){
+
+        $user =User::find($id);
+        $user->delete();
+         $notification = array(
+        'message' => 'User Deleted successfully',
+        'alert-type' => 'error'
+        );
+        return redirect()->route('user.view')->with($notification);
+
+    }
 }

@@ -136,4 +136,94 @@ in my case =>DB_DATABASE=school
 		@endsection
 
 # 5. Insert User Data in Database Part 2
+// Store user  controller code 
+		
+			action="{{route('user.store')}}"
 
+    public function user_store(Request $request){
+        $validateData = $request ->validate([
+            'email' =>'required|unique:users',
+            'name' =>'required',
+        ]);
+        $data = new User();
+        $data->usertype = $request->usertype;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->save();
+        $notification = array(
+        'message' => 'User login successfully',
+        'alert-type' => 'success'
+        );
+        return redirect()->route('user.view')->with($notification);
+    }
+
+# 8. Edit and Update User Data into Database Part 2
+* Make a route and method in  Controller
+
+* action="{{route('user.update',$editdata->id)}}"
+view section:
+
+		<select name="usertype" id="select" required="" class="form-control">
+		<option value="" selected="" disabled="">Select Role</option>
+		<option value="Admin" {{($editdata->usertype == "Admin" ? "selected": "")}}>Admin</option>
+		<option value="user" {{($editdata->usertype == "user" ? "selected": "")}}>user</option>
+		</select>
+//Controller 
+
+		//update user detail 
+		public function user_update(Request $request, $id){
+		$data = User::find($id);
+		$data->usertype = $request->usertype;
+		$data->name = $request->name;
+		$data->email = $request->email;
+		$data->save();
+		$notification = array(
+		'message' => 'User updated successfully',
+		'alert-type' => 'info'
+		);
+		return redirect()->route('user.view')->with($notification);
+		}
+
+# routes 
+	//add User show for view page to add user
+	Route::get('/add',[UserCon::class,'user_add'])->name('users.add');
+	//store user 
+	Route::post('/store',[UserCon::class,'user_store'])->name('user.store');
+	//edit user 
+	Route::get('/edit/{id}',[UserCon::class,'user_edit'])->name('user.edit');
+	//update user 
+	Route::post('/update/{id}',[UserCon::class,'user_update'])->name('user.update');
+
+# How to add sweet alert on delete  copy and paste 
+
+		<!-- sweet alert -->
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script type="text/javascript">
+		$(function(){
+		$(document).on('click','#delete',function(e){
+		e.preventDefault();
+		var link = $(this).attr("href");
+
+		Swal.fire({
+		title: 'Are you sure?',
+		text: "Delete This Data!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+		if (result.isConfirmed) {
+		window.location.href = link
+		Swal.fire(
+		'Deleted!',
+		'Your file has been deleted.',
+		'success'
+		)
+		}
+		})
+
+		});
+		});
+		</script>
