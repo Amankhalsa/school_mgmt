@@ -503,3 +503,206 @@ End
 		<a href="{{route('student.class.delete',$student->id)}}" class="btn btn-danger" id="delete">Delete</a>
 End  8 part
 -----------------------------------------------------------------------------
+
+# Student year all controller code 
+* need Model Class and Controller 
+
+		//student year
+		public function view_year(){
+		$data['allData']= StudentYear::all();
+		return view('backend.setup.year.view_year',$data);
+		}
+
+		//add year mean show page for add 
+		public function add_year(){
+		return view('backend.setup.year.add_year');
+		}
+
+		//store year 
+		public function store_year(Request $request){
+		$validateData = $request ->validate([
+		'name' =>'required|unique:student_years,name',
+		]); //validation end 
+
+		$data = new StudentYear();
+		$data->name =$request->name;
+		$data->save();  
+
+		$notification = array(
+		'message' => 'Student Year inserted successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('student.year.view')->with($notification);
+		}		// store year method end 
+
+		//Student year edit 
+		public function student_year_edit($id){
+		$editData =StudentYear::find($id);
+		return view('backend.setup.year.edit_year',compact('editData'));
+		}
+
+		//update year 
+		public function student_year_update(Request $request, $id){
+		$data = StudentYear::find($id);
+		$validateData = $request ->validate([
+		'name' =>'required|unique:student_years,name,'.$data->id
+		]); //validation 
+
+		$data->name =$request->name;
+		$data->save();  
+
+		$notification = array(  //notification
+		'message' => 'Student year updated successfully',
+		'alert-type' => 'info'
+		);
+		return redirect()->route('student.year.view')->with($notification);
+		}
+
+
+
+		//year delete 
+		public function student_year_delete($id){
+		$user =StudentYear::find($id);
+		$user->delete();
+
+		$notification = array(
+		'message' => 'Student year deleted successfully',
+		'alert-type' => 'error'
+		);
+		return redirect()->route('student.year.view')->with($notification);
+		}
+
+# Routes 
+
+	//Student year routes
+	Route::get('/student/year/view',[StudentYearCon::class,'view_year'])->name('student.year.view');
+
+	//add year 
+	Route::get('/student/year/add',[StudentYearCon::class,'add_year'])->name('student.year.add');
+	//store year 
+	Route::post('/student/year/store',[StudentYearCon::class,'store_year'])->name('store.student.year');
+
+	// student year edit 
+	Route::get('/student/year/edit/{id}',[StudentYearCon::class,'student_year_edit'])->name('student.year.edit');
+
+	//update year 
+	Route::post('/student/year/update/{id}',[StudentYearCon::class,'student_year_update'])->name('update.student.year');
+
+	// student year Delete 
+	Route::get('/student/year/delete/{id}',[StudentYearCon::class,'student_year_delete'])->name('student.year.delete');
+Button 
+
+	<a href="{{route('student.year.edit',$year->id)}}" >Edit</a>
+	<a href="{{route('student.year.delete',$year->id)}}" id="delete">Delete</a>
+
+	<a href="{{route('student.year.add')}}" >Add Student year</a>
+Form Action:
+
+	<form action="{{route('store.student.year')}}" method="post">
+This code is same like student class 
+-----------------------------------------------------------------------------
+============= End student year section =============
+-----------------------------------------------------------------------------
+# 10. Student Group Management
+* need model and controller same like year 
+
+# Controller code 
+
+		//student group
+		public function view_group(){
+		$data['allData']= StudentGroup::all();
+		return view('backend.setup.group.view_group',$data);
+		}
+
+		//Add student Group
+		public function add_group(){
+		return view('backend.setup.group.add_group');
+		}
+
+		//Store student group
+		public function store_group(Request $resuest){
+		$validateData = $resuest->validate([
+		'name' =>'required|unique:student_groups,name',
+		]);//validation end 
+
+		$data= new StudentGroup();
+		$data->name=$resuest->name;
+		$data->save();
+
+		$notification = array(
+		'message' => 'Student Group inserted successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('student.group.view')->with($notification);
+
+		}//store method end 
+
+		//edit group
+		public function student_group_edit($id){
+		$editData =StudentGroup::find($id);
+		return view('backend.setup.group.edit_group',compact('editData'));
+		}
+
+		//update group
+		public function student_group_update(Request $request, $id){
+		$data = StudentGroup::find($id);
+		$validateData = $request ->validate([
+		'name' =>'required|unique:student_groups,name,'.$data->id
+		]); //validation 
+
+		$data->name =$request->name;
+		$data->save();  
+
+		$notification = array(  //notification
+		'message' => 'Student Group updated successfully',
+		'alert-type' => 'info'
+		);
+		return redirect()->route('student.group.view')->with($notification);
+		}
+
+		//delete group
+		public function student_group_delete($id){
+		$user =StudentGroup::find($id);
+		$user->delete();
+		$notification = array(
+		'message' => 'Student Group deleted successfully',
+		'alert-type' => 'error'
+		);
+		return redirect()->route('student.group.view')->with($notification);
+		}
+
+#Routes :
+
+	//Student Group routes ======================================
+	Route::get('/student/group/view',[StudentGroupCon::class,'view_group'])->name('student.group.view');
+	
+	//Add student group
+	Route::get('/student/group/add',[StudentGroupCon::class,'add_group'])->name('student.group.add');
+
+	//store group
+	Route::post('/student/group/store',[StudentGroupCon::class,'store_group'])->name('store.student.group');
+
+	//edit group 
+	Route::get('/student/group/edit/{id}',[StudentGroupCon::class,'student_group_edit'])->name('student.group.edit');
+
+	//update group 
+	Route::post('/student/group/update/{id}',[StudentGroupCon::class,'student_group_update'])->name('update.student.group');
+
+	//delete group 
+	Route::get('/student/group/delete/{id}',[StudentGroupCon::class,'student_group_delete'])->name('student.group.delete');
+
+* view Link 
+
+		<a href="{{route('student.group.edit',$group->id)}}" >Edit</a>
+		<a href="{{route('student.group.delete',$group->id)}}"  id="delete">Delete</a>
+
+* Edit Action 
+
+		action="{{route('update.student.group',$editData->id)}}"
+* Add group
+
+		action="{{route('store.student.group')}}" 
+end
+-----------------------------------------------------------------------------
+============= End student Group section =============
+-----------------------------------------------------------------------------
