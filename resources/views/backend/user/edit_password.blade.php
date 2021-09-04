@@ -1,5 +1,5 @@
 @extends('admin.admin_master')
-@section('title', 'Add user')
+@section('title', 'Edit Password')
 @section('admin')
   
   <!-- Content Wrapper. Contains page content -->

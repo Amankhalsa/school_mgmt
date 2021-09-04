@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminCon;
 use App\Http\Controllers\Backend\UserCon;
 use App\Http\Controllers\Backend\ProfileCon;
-
-
+use App\Http\Controllers\Backend\setup\StudentClassConn;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +76,30 @@ Route::post('/password/update',[ProfileCon::class,'password_update'])->name('pas
 
 
 
+
+
 	});
+// Setup management 
+
+Route::prefix('setups')->group(function(){
+
+Route::get('/student/class/view',[StudentClassConn::class,'view_student'])->name('student.class.view');
+//add class 
+Route::get('/student/class/add',[StudentClassConn::class,'student_class_add'])->name('student.class.add');
+
+//store student class
+Route::post('/student/class/store',[StudentClassConn::class,'student_class_store'])->name('store.student.class');
+
+
+//Class edit 
+Route::get('/student/class/edit/{id}',[StudentClassConn::class,'student_class_edit'])->name('student.class.edit');
+
+
+
+//update class
+Route::post('/student/class/update/{id}',[StudentClassConn::class,'student_class_update'])->name('update.student.class');
+
+//delete clas
+Route::get('/student/class/delete/{id}',[StudentClassConn::class,'student_class_delete'])->name('student.class.delete');
+
+		});
