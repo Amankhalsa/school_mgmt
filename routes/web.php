@@ -67,6 +67,14 @@ Route::get('/view',[ProfileCon::class,'profile_view'])->name('profile.view');
 //profile edit
 Route::get('/edit',[ProfileCon::class,'profile_edit'])->name('profile.edit');
 
+//Profile store after edit
+Route::post('/store',[ProfileCon::class,'profile_store'])->name('profile.store');
+
+//password 
+Route::get('/password/view',[ProfileCon::class,'password_view'])->name('password.view');
+//update password 
+Route::post('/password/update',[ProfileCon::class,'password_update'])->name('password.update');
+
 
 
 	});

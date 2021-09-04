@@ -227,3 +227,169 @@ view section:
 		});
 		});
 		</script>
+End 
+-----------------------------------------------------------------------------
+# User Profile Manage
+* use Auth;
+* use App\Models\User;
+* View profile page link :
+
+		<a href="{{route('user.edit',$user->id)}}" class="btn btn-info">Edit</a>
+		<a href="{{route('user.delete',$user->id)}}" class="btn btn-danger" id="delete">Delete</a>
+
+* For this profile manage we rwquired view profile and edit profile page in view 
+* Action Link:=> for updation 
+
+		action="{{route('user.update',$editData->id)}}"
+
+* Edit view page code for selection 
+
+			<select name="gender" id="gender" required="" class="form-control">
+			<option value="" selected="" disabled="">Select Role</option>
+			<option value="Male" {{($editData->gender == "Male" ? "selected": "")}}>Admin</option>
+			<option value="Female" {{($editData->gender == "Female" ? "selected": "")}}>user</option>
+			</select>
+
+* Routes :
+
+
+
+		* use App\Http\Controllers\AdminCon;
+		* use App\Http\Controllers\Backend\UserCon;
+
+		Route::prefix('profile')->group(function(){
+		//Profile view route 
+		Route::get('/view',[ProfileCon::class,'profile_view'])->name('profile.view');
+
+		//profile edit
+		Route::get('/edit',[ProfileCon::class,'profile_edit'])->name('profile.edit');
+		});
+* Controller :
+
+		    public function profile_view(){
+		    	$id =Auth::User()->id;
+		    	$user = User::find($id);
+		    	return view('backend.user.view_profile',compact('user'));
+
+		    }
+		    public function profile_edit(){
+		    	$id =Auth::User()->id;
+		    	$editData = User::find($id);
+		    	return view('backend.user.edit_profile',compact('editData'));
+		    }
+# 3. User Profile Image Upload Edit Update Database Part 3 done
+# 4. User Profile Image Upload Edit Update Database Part 4
+
+	enctype="multipart/form-data"
+
+* Controller code :
+
+		// Store data after updating 
+		public function profile_store(Request $request){
+		$data = User::find(Auth::user()->id);
+		$data->name =$request->name;
+		$data->email =$request->email;
+		$data->mobile =$request->mobile;
+		$data->address =$request->address;
+		$data->gender =$request->gender;
+
+		if ($request->file('image')) {
+		$file = $request->file('image');
+		@unlink(public_path('upload/user_image/'.$data->image));
+		$filename = date('Ymdhi').$file->getClientOriginalname();
+		$file->move(public_path('upload/user_image/'),$filename);
+		$data['image']=$filename;
+		}
+
+		//end if 
+		$data->save();
+		$notification = array(
+		'message' => 'user Profile updated successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('profile.view')->with($notification);  
+		}
+
+# add this if user profile not showing in all page 
+* Add this code in header file 
+
+		@php 
+		$user =DB::table('users')->where('id',Auth::user()->id)->first();
+		@endphp
+End 
+-----------------------------------------------------------------------------
+# 7. Manage User Profile :
+# 5. User Profile Change Password Option Part 1 :
+
+* Edit blade code :
+
+		<div class="form-group">
+		<h5>Current Password<span class="text-danger">*</span></h5>
+		<div class="controls">
+		<input id="current_password" type="password" name="oldpassword" class="form-control" >
+		@error('oldpassword')
+		<span class="text-danger"> {{ $message}}</span>
+		@enderror
+		</div>
+		</div>
+
+		<div class="form-group">
+		<h5>New Password<span class="text-danger">*</span></h5>
+		<div class="controls">
+		<input name="password" id="password" type="password"  class="form-control"  >
+		@error('password')
+		<span class="text-danger"> {{ $message}}</span>
+		@enderror
+		</div>
+		</div>
+
+		<div class="form-group">
+		<h5>Confirm Password<span class="text-danger">*</span></h5>
+		<div class="controls">
+		<input id="password_confirmation" type="password" name="password_confirmation" class="form-control" >
+		@error('password_confirmation')
+		<span class="text-danger"> {{ $message}}</span>
+		@enderror
+		</div>
+		</div>
+* Route :
+
+		//password 
+		Route::get('/password/view',[ProfileCon::class,'password_view'])->name('password.view');
+* Controller :
+
+		//password 
+		public function password_view(){
+		return view('backend.user.edit_password');
+		}
+End 
+-----------------------------------------------------------------------------
+# 6. User Profile Change Password Option Part 
+* Make a route  for update :
+
+		//update password 
+		Route::post('/password/update',[ProfileCon::class,'password_update'])->name('password.update');
+* Controller for update password :
+
+		//update password 
+		public function password_update(Request $request){
+		$validateData = $request ->validate([
+		'oldpassword' =>'required',
+		'password' =>'required|confirmed',
+		]);//end validation
+		$hashedPassword =Auth::user()->password;
+		if (Hash::check($request->oldpassword,$hashedPassword)) {
+		$user =User::find(Auth::id());
+		$user->password=Hash::make($request->password);
+		$user->save();
+		Auth::logout();
+		return redirect()->route('login');
+		}else{
+		return redirect()->back();
+		}
+		}//end method 
+
+* Action => action="{{route('password.update')}}"
+
+End 
+-----------------------------------------------------------------------------

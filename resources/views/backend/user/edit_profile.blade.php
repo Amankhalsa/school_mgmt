@@ -21,7 +21,7 @@
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-<form action="{{route('user.update',$editData->id)}}" method="post">
+<form action="{{route('profile.store')}}" method="post" enctype="multipart/form-data">
 	@csrf
 <div class="row">
 <div class="col-12">	
@@ -55,7 +55,7 @@
 	<div class="form-group">
 			<h5>User Mobile<span class="text-danger">*</span></h5>
 			<div class="controls">
-			<input type="text" name="mobile" class="form-control" required="" value="{{$editData->mobile}}">
+			<input type="text" name="mobile" class="form-control" required="" value="{{$editData->mobile}}" maxlength="10">
 			</div>
 	</div>
 		
@@ -79,8 +79,8 @@
 		<div class="controls">
 				<select name="gender" id="gender" required="" class="form-control">
 				<option value="" selected="" disabled="">Select Role</option>
-				<option value="Male" {{($editData->gender == "Male" ? "selected": "")}}>Admin</option>
-				<option value="Female" {{($editData->gender == "Female" ? "selected": "")}}>user</option>
+				<option value="Male" {{($editData->gender == "Male" ? "selected": "")}}>Male</option>
+				<option value="Female" {{($editData->gender == "Female" ? "selected": "")}}>Female</option>
 				</select>
 		</div>
 </div>
@@ -101,7 +101,7 @@
 		<div class="form-group">
 			
 			<div class="controls">
-			<img src="{{(!empty($user->image)) ? url('upload/user_image/'.$user->image): url('upload/no_image.jpg')}}" width="100" height="100" id="output">
+			<img src="{{(!empty($editData->image)) ? url('upload/user_image/'.$editData->image): url('upload/no_image.jpg')}}" width="100" height="100" id="output">
 			</div>
 	</div>
 		
