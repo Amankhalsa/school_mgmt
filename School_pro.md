@@ -369,6 +369,7 @@ End
 
 		//update password 
 		Route::post('/password/update',[ProfileCon::class,'password_update'])->name('password.update');
+	
 * Controller for update password :
 
 		//update password 
@@ -393,3 +394,16 @@ End
 
 End 
 -----------------------------------------------------------------------------
+# 7. SideBar Menu Active Deactive Option
+
+	@php
+	$prefix = Request::route()->getPrefix();
+	$route  =Route::current()->getName();
+	@endphp
+For route :
+
+	class="{{($route == 'dashboard') ? 'active':''}}"
+
+For prefix
+
+		class="treeview {{($prefix == '/users') ? 'active':''}}"			
