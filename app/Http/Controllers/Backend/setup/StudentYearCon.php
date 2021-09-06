@@ -43,7 +43,7 @@ class StudentYearCon extends Controller
 			'message' => 'Student Year inserted successfully',
 			'alert-type' => 'success'
 			);
-        return redirect()->route('student.year.view')->with($notification);
+    return redirect()->route('student.year.view')->with($notification);
     }		// store year method end 
 
 

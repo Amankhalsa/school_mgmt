@@ -7,6 +7,9 @@ use App\Http\Controllers\Backend\ProfileCon;
 use App\Http\Controllers\Backend\setup\StudentClassConn;
 use App\Http\Controllers\Backend\setup\StudentYearCon;
 use App\Http\Controllers\Backend\setup\StudentGroupCon;
+use App\Http\Controllers\Backend\setup\StudentShiftCon;
+use App\Http\Controllers\Backend\setup\FeeCategoryCon;
+
 
 
 /*
@@ -120,8 +123,6 @@ Route::post('/student/year/update/{id}',[StudentYearCon::class,'student_year_upd
 // student year Delete 
 Route::get('/student/year/delete/{id}',[StudentYearCon::class,'student_year_delete'])->name('student.year.delete');
 
-
-
 //Student Group routes ======================================
 Route::get('/student/group/view',[StudentGroupCon::class,'view_group'])->name('student.group.view');
 //Add student group
@@ -130,7 +131,6 @@ Route::get('/student/group/add',[StudentGroupCon::class,'add_group'])->name('stu
 //store group
 Route::post('/student/group/store',[StudentGroupCon::class,'store_group'])->name('store.student.group');
 
-
 //edit group 
 Route::get('/student/group/edit/{id}',[StudentGroupCon::class,'student_group_edit'])->name('student.group.edit');
 
@@ -138,10 +138,48 @@ Route::get('/student/group/edit/{id}',[StudentGroupCon::class,'student_group_edi
 Route::post('/student/group/update/{id}',[StudentGroupCon::class,'student_group_update'])->name('update.student.group');
 
 
-
-
 //delete group 
 Route::get('/student/group/delete/{id}',[StudentGroupCon::class,'student_group_delete'])->name('student.group.delete');
+
+//=================== Student shift route ===================
+//view_shift
+Route::get('/student/shift/view',[StudentShiftCon::class,'view_shift'])->name('student.shift.view');
+//Student shift add
+Route::get('/student/shift/add',[StudentShiftCon::class,'add_shift'])->name('student.shift.add');
+//Student shift store 
+Route::post('/student/shift/store',[StudentShiftCon::class,'store_shift'])->name('store.student.shift');
+
+//edit shift 
+Route::get('/student/shift/edit/{id}',[StudentShiftCon::class,'student_shift_edit'])->name('student.shift.edit');
+
+//update shift 
+
+Route::post('/student/shift/update/{id}',[StudentShiftCon::class,'student_shift_update'])->name('update.student.group');
+//Delete shift 
+Route::get('/student/shift/delete/{id}',[StudentShiftCon::class,'student_shift_delete'])->name('student.shift.delete');
+
+
+//===================  Fee Category route=================== 
+Route::get('/fee/Category/view',[FeeCategoryCon::class,'View_fee_cat'])->name('fee.Category.view');
+
+
+
+//Fee Category add
+Route::get('/Fee/Category/add',[FeeCategoryCon::class,'add_Fee_cat'])->name('Fee.Category.add');
+
+//Store fee cat 
+Route::post('/Fee/Category/store',[FeeCategoryCon::class,'store_fee_cat'])->name('store.fee.Category');
+
+
+//Edit fee category 
+
+Route::get('/fee/Category/edit/{id}',[FeeCategoryCon::class,'edit_fee_cat'])->name('fee.Category.edit');
+
+//update Fee Category
+Route::post('/fee/Category/update/{id}',[FeeCategoryCon::class,'fee_cat_update'])->name('update.Fee.Category');
+
+//Delete Fee Category 
+Route::get('/fee/Category/delete/{id}',[FeeCategoryCon::class,'delete_fee_cat'])->name('fee.Category.delete');
 
 
 		});

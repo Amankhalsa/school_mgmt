@@ -706,3 +706,218 @@ end
 -----------------------------------------------------------------------------
 ============= End student Group section =============
 -----------------------------------------------------------------------------
+# Student Shift sample code:
+
+		use App\Models\StudentShift;
+
+		//student shift view 
+		public function view_shift(){
+		$data['allData']= StudentShift::all();
+		return view('backend.setup.shift.view_shift',$data);
+		}
+
+		//show add shift page 
+		public function add_shift(){
+		return view('backend.setup.shift.add_shift');
+		}
+
+		//store student shift page
+		public function store_shift(Request $request){
+		$validateData = $request ->validate([
+		'name' =>'required|unique:student_shifts,name',
+
+		]);//validation end 
+		$data = new StudentShift();
+		$data->name =$request->name;
+		$data->save();  
+
+		$notification = array(
+		'message' => 'Student Shift inserted successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('student.shift.view')->with($notification);
+		}
+
+		//edit shift  page view 
+		public function student_shift_edit($id){
+		$editData =StudentShift::find($id);
+		return view('backend.setup.shift.edit_shift',compact('editData'));
+		}
+
+		public function student_shift_update(Request $request,$id){
+		$data = StudentShift::find($id);
+		$validateData = $request ->validate([
+		'name' =>'required|unique:student_shifts,name,'.$data->id
+		]); //validation 
+
+		$data->name =$request->name;
+		$data->save();  
+
+		$notification = array(  //notification
+		'message' => 'Student Shift updated successfully',
+		'alert-type' => 'info'
+		);
+		return redirect()->route('student.shift.view')->with($notification);
+		}//end update method 
+
+		//Delete shift method 
+		public function student_shift_delete($id){
+		$user =StudentShift::find($id);
+		$user->delete();
+
+		$notification = array(
+		'message' => 'Student Shift deleted successfully',
+		'alert-type' => 'error'
+		);
+		return redirect()->route('student.shift.view')->with($notification);
+		}
+
+
+# Routes 
+
+	//=================== Student shift route ===================
+	//view_shift
+	Route::get('/student/shift/view',[StudentShiftCon::class,'view_shift'])->name('student.shift.view');
+	
+	//Student shift add
+	Route::get('/student/shift/add',[StudentShiftCon::class,'add_shift'])->name('student.shift.add');
+	
+	//Student shift store 
+	Route::post('/student/shift/store',[StudentShiftCon::class,'store_shift'])->name('store.student.shift');
+
+	//edit shift 
+	Route::get('/student/shift/edit/{id}',[StudentShiftCon::class,'student_shift_edit'])->name('student.shift.edit');
+
+	//update shift 
+	Route::post('/student/shift/update/{id}',[StudentShiftCon::class,'student_shift_update'])->name('update.student.group');
+	
+	//Delete shift 
+	Route::get('/student/shift/delete/{id}',[StudentShiftCon::class,'student_shift_delete'])->name('student.shift.delete');
+
+# View 
+
+		<a href="{{route('student.shift.edit',$shift->id)}}" ">Edit</a>
+		<a href="{{route('student.shift.delete',$shift->id)}}" id="delete">Delete</a>
+View:
+
+	href="{{route('student.shift.add')}}" 
+	action="{{route('store.student.shift')}}"
+Edit:
+
+	"{{route('update.student.shift',$editData->id)}}" 
+	 value="{{$editData->name}}"
+Update:
+
+		 action="{{route('update.student.group',$editData->id)}}"
+end
+-----------------------------------------------------------------------------
+============= End student Shift section =============
+-----------------------------------------------------------------------------
+# 1. Working Fee Category Option Part 1
+# Controller code:
+
+use App\Models\FeeCategory;
+
+	//Fee cat view 
+	public function View_fee_cat(){
+	$data['allData']= FeeCategory::all();
+	return view('backend.setup.fee_cat.view_fee_cat',$data);
+	}
+
+	//view fee cat add page 
+	public function add_Fee_cat(){
+	return view('backend.setup.fee_cat.add_fee_cat');
+	}
+
+	//store fee cat 
+	public function store_fee_cat(Request $request){
+
+	$validateData = $request ->validate([
+	'name' =>'required|unique:fee_categories,name',
+	]); //validation end 
+
+	$data = new FeeCategory();
+	$data->name =$request->name;
+	$data->save();  
+
+	$notification = array(
+	'message' => 'Fee Category inserted successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('fee.Category.view')->with($notification);
+	}
+
+	//edit Fee category 
+	public function edit_fee_cat($id){
+	$editData =FeeCategory::find($id);
+	return view('backend.setup.fee_cat.edit_fee_cat',compact('editData'));
+	}
+
+	//update fee category 
+	public function fee_cat_update(Request $request,$id){
+	$data = FeeCategory::find($id);
+	$validateData = $request ->validate([
+	'name' =>'required|unique:fee_categories,name,'.$data->id
+
+	]);//validation end 
+	$data->name =$request->name;
+	$data->save();  
+
+	$notification = array(
+	'message' => 'Fee Category updated successfully',
+	'alert-type' => 'info'
+	);
+	return redirect()->route('fee.Category.view')->with($notification);
+	}
+
+	//Fee category delete
+	public function delete_fee_cat($id){
+	$user =FeeCategory::find($id);
+	$user->delete();
+
+	$notification = array(
+	'message' => 'Fee Category deleted successfully',
+	'alert-type' => 'error'
+	);
+	return redirect()->route('fee.Category.view')->with($notification);
+	    }
+
+#Route:
+
+	//===================  Fee Category route=================== 
+	Route::get('/fee/Category/view',[FeeCategoryCon::class,'View_fee_cat'])->name('fee.Category.view');
+
+	//Fee Category add
+	Route::get('/Fee/Category/add',[FeeCategoryCon::class,'add_Fee_cat'])->name('Fee.Category.add');
+
+	//Store fee cat 
+	Route::post('/Fee/Category/store',[FeeCategoryCon::class,'store_fee_cat'])->name('store.fee.Category');
+
+	//Edit fee category 
+	Route::get('/fee/Category/edit/{id}',[FeeCategoryCon::class,'edit_fee_cat'])->name('fee.Category.edit');
+
+	//update Fee Category
+	Route::post('/fee/Category/update/{id}',[FeeCategoryCon::class,'fee_cat_update'])->name('update.Fee.Category');
+
+	//Delete Fee Category 
+	Route::get('/fee/Category/delete/{id}',[FeeCategoryCon::class,'delete_fee_cat'])->name('fee.Category.delete');
+
+#  View Code:
+
+		<a href="{{route('Fee.Category.add')}}"  style="float: right;">Add Fee Category</a>
+* Edit Del buttons:
+
+		<a href="{{route('fee.Category.edit',$fee->id)}}" >Edit</a>
+		<a href="{{route('fee.Category.delete',$fee->id)}}" id="delete">Delete</a>
+
+* update Action:
+
+		value="{{$editData->name}}"
+		action="{{route('update.Fee.Category',$editData->id)}}"
+* Store action
+
+		action="{{route('store.fee.Category')}}"
+end
+-----------------------------------------------------------------------------
+============= End student Fee Category =============
+-----------------------------------------------------------------------------
