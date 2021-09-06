@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\setup\StudentYearCon;
 use App\Http\Controllers\Backend\setup\StudentGroupCon;
 use App\Http\Controllers\Backend\setup\StudentShiftCon;
 use App\Http\Controllers\Backend\setup\FeeCategoryCon;
+use App\Http\Controllers\Backend\setup\FeeAmountCon;
+
 
 
 
@@ -180,6 +182,16 @@ Route::post('/fee/Category/update/{id}',[FeeCategoryCon::class,'fee_cat_update']
 
 //Delete Fee Category 
 Route::get('/fee/Category/delete/{id}',[FeeCategoryCon::class,'delete_fee_cat'])->name('fee.Category.delete');
+
+// ======================== Fee amount ========================
+Route::get('/fee/Amount/view',[FeeAmountCon::class,'view_fee_Amt'])->name('fee.Amount.view');
+
+
+//Add fee abount 
+Route::get('/fee/Amount/add',[FeeAmountCon::class,'add_fee_Amt'])->name('Fee.Amount.add');
+//store fee amount 
+Route::post('/fee/Amount/store',[FeeAmountCon::class,'store_fee_Amt'])->name('store.fee.amount');
+
 
 
 		});

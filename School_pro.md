@@ -104,8 +104,17 @@ in my case =>DB_DATABASE=school
 		$table->string('usertype')->nullable();
 
 * for remove user table run this 
+* You can also rollback if you want to drop your last migrated table
 
 		php artisan migrate:rollback 
+* The migrate:reset command will roll back all of your application's migrations:
+
+		php artisan migrate:reset
+* The migrate:fresh command will drop all tables from the database and then execute the migrate command:
+
+		php artisan migrate:fresh
+
+		php artisan migrate:fresh --seed
 
 * Then run  for create user table in DB
 
@@ -921,3 +930,10 @@ end
 -----------------------------------------------------------------------------
 ============= End student Fee Category =============
 -----------------------------------------------------------------------------
+# 13. Manage Student Fee Category Amount
+
+# Part 4. Working Fee Category Amount Part 4 
+
+END
+------------------------------------------------------------------------------
+

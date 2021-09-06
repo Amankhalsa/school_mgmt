@@ -34,7 +34,7 @@ alt="User Avatar">
 					  <div class="row">
 						<div class="col-sm-4">
 						  <div class="description-block">
-							<h5 class="description-header">Mobile Number</h5>
+							<h5 class="description-header"> <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Mobile Number</h5>
 							<span class="description-text">{{$user->mobile}}</span>
 						  </div>
 						  <!-- /.description-block -->
