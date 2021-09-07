@@ -1053,3 +1053,94 @@ end
 -----------------------------------------------------------------------------
 ============= End student Fee fee_amount =============
 -----------------------------------------------------------------------------
+# Exam type Controller code 
+
+	////Fee cat view 
+	public function view_exam_type(){
+	$data['allData']= ExamType::all();
+	return view('backend.setup.exam.view_exam_type',$data);
+	}
+
+	//view page for examm type add
+	public function view_exam_add(){
+	return view('backend.setup.exam.add_exam_type');
+	}
+
+	//Store Exam type 
+	public function store_exam_type(Request $request){
+	$validateData = $request ->validate([
+	'name' =>'required|unique:exam_types,name',
+	]); 
+
+	$data= new ExamType();
+	$data->name =$request->name;
+	$data->save();
+	$notification = array(
+	'message' => 'Exam Type inserted successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('exam.type.view')->with($notification);
+	}
+
+	//edit exam type
+	public function edit_exam_type($id){
+	$editData =ExamType::find($id);
+	return view('backend.setup.exam.edit_exam_type',compact('editData'));
+	}
+
+	//update exam type  edit data
+	public function update_exam_type(Request $request, $id){
+	$data = ExamType::find($id);
+	$validateData = $request ->validate([
+	'name' =>'required|unique:exam_types,name,'.$data->id
+	]); 
+
+	$data->name =$request->name;
+	$data->save();
+	$notification = array(
+	'message' => 'Exam Type Updated successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('exam.type.view')->with($notification);
+
+	}
+	//delete exam type
+	public function delete_exam_type($id){
+	$user =ExamType::find($id);
+	$user->delete();
+
+	$notification = array(
+	'message' => 'Exam Type deleted successfully',
+	'alert-type' => 'error'
+	);
+	return redirect()->route('exam.type.view')->with($notification);
+	}
+
+# Route for exam type :
+
+	//======================== Exam Type route ========================
+	Route::get('/exam/type/view',[ExamTypeCon::class,'view_exam_type'])->name('exam.type.view');
+
+	//add exam type view page 
+	Route::get('/exam/type/add',[ExamTypeCon::class,'view_exam_add'])->name('exam.type.add');
+	//store exam type 
+	Route::post('/exam/type/store',[ExamTypeCon::class,'store_exam_type'])->name('store.exam.type');
+
+	//edit exam type
+	Route::get('/exam/type/edit/{id}',[ExamTypeCon::class,'edit_exam_type'])->name('exam.type.edit');
+
+	//update exam type 
+	Route::post('/exam/type/update/{id}',[ExamTypeCon::class,'update_exam_type'])->name('update.exam.type');
+
+	//delete exam type 
+	Route::get('/exam/type/delete/{id}',[ExamTypeCon::class,'delete_exam_type'])->name('exam.type.delete');
+
+# Migration controller should be updated 
+* File should be imported in web.php and model class imported in controller 
+* Then view: View, edit add file should be included in exam folder 
+
+end
+-----------------------------------------------------------------------------
+Now This exam type is end 
+-----------------------------------------------------------------------------
+
