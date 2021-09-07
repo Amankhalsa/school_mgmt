@@ -186,11 +186,20 @@ Route::get('/fee/Category/delete/{id}',[FeeCategoryCon::class,'delete_fee_cat'])
 // ======================== Fee amount ========================
 Route::get('/fee/Amount/view',[FeeAmountCon::class,'view_fee_Amt'])->name('fee.Amount.view');
 
-
 //Add fee abount 
 Route::get('/fee/Amount/add',[FeeAmountCon::class,'add_fee_Amt'])->name('Fee.Amount.add');
+
 //store fee amount 
 Route::post('/fee/Amount/store',[FeeAmountCon::class,'store_fee_Amt'])->name('store.fee.amount');
+
+//fee amountedit 
+Route::get('/fee/Amount/edit/{fee_category_id}',[FeeAmountCon::class,'fee_Amt_edit'])->name('fee.amount.edit');
+
+//Fee amount update
+Route::post('/fee/Amount/update/{fee_category_id}',[FeeAmountCon::class,'fee_Amt_update'])->name('update.fee.amount');
+
+//fee amount detail
+Route::get('/fee/Amount/details/{fee_category_id}',[FeeAmountCon::class,'fee_Amt_detail'])->name('fee.amount.details');
 
 
 

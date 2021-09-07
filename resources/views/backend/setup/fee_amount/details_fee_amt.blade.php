@@ -1,5 +1,5 @@
 @extends('admin.admin_master')
-@section('title', 'View Amount')
+@section('title', 'View Detail')
 @section('admin')
 
 
@@ -21,36 +21,33 @@
 
 			 <div class="box">
 				<div class="box-header with-border">
-				  <h3 class="box-title">Student Fee Amount list</h3>
+				  <h3 class="box-title">Fee Amount Details</h3>
 				  <a href="{{route('Fee.Amount.add')}}" class="btn btn-rounded btn-success mb-5" style="float: right;">Add Fee Amount</a>
 				</div>
 				<!-- /.box-header -->
+
 				<div class="box-body">
 					<div class="table-responsive">
-					  <table id="example1" class="table table-bordered table-striped">
-						<thead>
+						<h4><strong>Fee Category :</strong> {{$detailData['0']['fee_category']['name']}}</h4>
+					  <table  class="table table-bordered table-striped">
+						<thead class="thead-light">
 				<tr>
 					<th width="5%">Sl</th>
 				
-					<th>Fee Category </th>
+					<th>Class Name</th>
 					
-					<th width="25%">Action </th>
+					<th width="25%">Amount </th>
 					
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($allData as $key => $amount)
+				@foreach($detailData as $key => $detail)
 				<tr>
 					<td>{{$key+1 }} </td>
 				
-					<td>{{$amount['fee_category']['name']}}</td>
+					<td>{{$detail['student_class']['name']}}</td>
 				
-					<td>
-<a href="{{route('fee.amount.edit',$amount->fee_category_id)}}" class="btn btn-info">Edit</a>
-<a href="{{route('fee.amount.details',$amount->fee_category_id)}}" class="btn btn-dark" >Detail</a>
-
-
-					</td>
+					<td> {{$detail->amount}}</td>
 					
 				</tr>
 				@endforeach	
