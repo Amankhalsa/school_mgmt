@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\setup\StudentGroupCon;
 use App\Http\Controllers\Backend\setup\StudentShiftCon;
 use App\Http\Controllers\Backend\setup\FeeCategoryCon;
 use App\Http\Controllers\Backend\setup\FeeAmountCon;
+use App\Http\Controllers\Backend\setup\ExamTypeCon;
+
 
 
 
@@ -202,5 +204,26 @@ Route::post('/fee/Amount/update/{fee_category_id}',[FeeAmountCon::class,'fee_Amt
 Route::get('/fee/Amount/details/{fee_category_id}',[FeeAmountCon::class,'fee_Amt_detail'])->name('fee.amount.details');
 
 
+//======================== Exam Type route ========================
+Route::get('/exam/type/view',[ExamTypeCon::class,'view_exam_type'])->name('exam.type.view');
+
+
+//add exam type view page 
+Route::get('/exam/type/add',[ExamTypeCon::class,'view_exam_add'])->name('exam.type.add');
+//store exam type 
+Route::post('/exam/type/store',[ExamTypeCon::class,'store_exam_type'])->name('store.exam.type');
+
+
+//edit exam type
+Route::get('/exam/type/edit/{id}',[ExamTypeCon::class,'edit_exam_type'])->name('exam.type.edit');
+
+
+
+
+//update exam type 
+Route::post('/exam/type/update/{id}',[ExamTypeCon::class,'update_exam_type'])->name('update.exam.type');
+
+//delete exam type 
+Route::get('/exam/type/delete/{id}',[ExamTypeCon::class,'delete_exam_type'])->name('exam.type.delete');
 
 		});
