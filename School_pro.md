@@ -1143,4 +1143,214 @@ end
 -----------------------------------------------------------------------------
 Now This exam type is end 
 -----------------------------------------------------------------------------
+# School subject Controller code 
 
+		use Illuminate\Http\Request;
+		use App\Models\SchoolSubject;
+
+		// view subject 
+		public function view_subject(){
+		$data['allData']= SchoolSubject::all();
+		return view('backend.setup.school_subject.view_school_sub',$data);
+		}    
+
+		// show page for add subject 
+		public function add_subject(){
+		return view('backend.setup.school_subject.add_school_sub');
+		}
+
+		//store subject 
+		public function store_subject(Request $request){
+		$validateData = $request ->validate([
+		'name' =>'required|unique:school_subjects,name',
+		]); 
+
+		$data= new SchoolSubject();
+		$data->name =$request->name;
+		$data->save();
+		$notification = array(
+		'message' => 'Subject inserted successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('school.subject.view')->with($notification);
+
+
+		}
+		//edit
+		public function edit_subject($id){
+		$editData =SchoolSubject::find($id);
+		return view('backend.setup.school_subject.school_subjects',compact('editData'));
+		}
+
+		//update subject 
+		public function update_subject(Request $request,$id){
+		$data = SchoolSubject::find($id);
+		$validateData = $request ->validate([
+		'name' =>'required|unique:school_subjects,name,'.$data->id
+		]); 
+
+		$data->name =$request->name;
+		$data->save();
+		$notification = array(
+		'message' => 'Subject Updated successfully',
+		'alert-type' => 'success'
+		);
+		return redirect()->route('school.subject.view')->with($notification);
+		}
+
+		//Delete subject 
+		public function delete_subject($id){
+		$user = SchoolSubject::find($id);
+		$user->delete();
+
+		$notification = array(
+		'message' => 'Subject Deleted successfully',
+		'alert-type' => 'error'
+		);
+		return redirect()->route('school.subject.view')->with($notification);
+		}
+
+# ====================== School subject routes ======================
+	//======================== School subject routes =======================
+
+	//View subject 
+	Route::get('/school/subject/view',[SchoolSubjectCon::class,'view_subject'])->name('school.subject.view');
+
+	//add subject 
+	Route::get('/school/subject/add',[SchoolSubjectCon::class,'add_subject'])->name('School.Subject.add');
+
+	// store subject 
+	Route::post('/school/subject/store',[SchoolSubjectCon::class,'store_subject'])->name('store.school.Subject');
+
+	//edit subject
+	Route::get('/school/subject/edit/{id}',[SchoolSubjectCon::class,'edit_subject'])->name('school.subject.edit');
+
+	//Update 
+	Route::post('/school/subject/update/{id}',[SchoolSubjectCon::class,'update_subject'])->name('update.school.subject');
+
+	//Delete 
+	Route::get('/school/subject/delete/{id}',[SchoolSubjectCon::class,'delete_subject'])->name('school.subject.delete');
+
+End 
+-------------------------------------------------------------------------------
+# ====================== Assign school subject ======================
+	amespace App\Http\Controllers\backend\setup;
+
+	use App\Http\Controllers\Controller;
+	use Illuminate\Http\Request;
+	use App\Models\AssigneSubject;
+	use App\Models\StudentClass;
+	use App\Models\SchoolSubject;
+
+
+
+	//view assigne subject 
+	public function view_assigne_sub(){
+	// $data['allData']= AssigneSubject::all();
+
+	$data['allData']= AssigneSubject::select('class_id')->groupBy('class_id')->get();
+	return view('backend.setup.assigne_sub.view_assigne_sub',$data);
+	} 
+
+	//add Assigne subject 
+	public function add_assigne_sub(){
+	$data['subjects']=SchoolSubject::all();
+	$data['classes']=StudentClass::all();
+	return view('backend.setup.assigne_sub.add_assigne_sub',$data);
+	}
+
+	//store assigned  subject
+	public function store_assigne_sub(Request $request){
+	$subjectCount = count($request->subject_id);
+	if ($subjectCount != NULL ) {
+	for ($i=0; $i < $subjectCount ; $i++) { 
+	$assigne_subject = new AssigneSubject();
+	$assigne_subject->class_id = $request->class_id;
+	$assigne_subject->subject_id = $request->subject_id[$i];
+	$assigne_subject->full_mark = $request->full_mark[$i];
+	$assigne_subject->pass_mark = $request->pass_mark[$i];
+	$assigne_subject->subjective_mark = $request->subjective_mark[$i];
+
+	$assigne_subject->save();
+	}    //end for loop
+	}  //end if 
+	$notification = array(
+	'message' => 'Subject Assign inserted successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('Assigne.subject.view')->with($notification);
+	} //end method 
+	//edit 
+	public function assign_sub_edit($class_id){
+	$data['editData'] = AssigneSubject::where('class_id',$class_id)->orderBy('subject_id','asc')->get();
+	// dd($data['editData']->toArray());
+	$data['subjects']=SchoolSubject::all();
+	$data['classes']=StudentClass::all();
+	return view('backend.setup.assigne_sub.edit_assigne_sub',$data);
+	}
+
+	//update assign subject 
+	public function assign_sub_update(Request $request, $class_id){
+	if ($request->subject_id == NULL) {
+	$notification = array(
+	'message' => 'Sorry you dont select any Subject ',
+	'alert-type' => 'error'
+	);
+	return redirect()->route('assign.subject.edit',$class_id)->with($notification);
+	// dd('Error');
+	}//end if 
+	else{
+
+	$countClass = count($request->subject_id);
+	AssigneSubject::where('class_id',$class_id)->delete();
+	for ($i=0; $i < $countClass ; $i++) { 
+	$assigne_subject = new AssigneSubject();
+	$assigne_subject->class_id = $request->class_id;
+	$assigne_subject->subject_id = $request->subject_id[$i];
+	$assigne_subject->full_mark = $request->full_mark[$i];
+	$assigne_subject->pass_mark = $request->pass_mark[$i];
+	$assigne_subject->subjective_mark = $request->subjective_mark[$i];
+
+	$assigne_subject->save();
+	}    //end for loop
+
+
+	} //end else 
+	$notification = array(
+	'message' => 'Data updated successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('Assigne.subject.view')->with($notification);
+	}
+
+	//details 
+	public function assign_sub_detail($class_id){
+	$data['detailData'] = AssigneSubject::where('class_id',$class_id)->orderBy('subject_id','asc')->get();
+	return view('backend.setup.assigne_sub.details_assigne_sub',$data);
+	}
+	
+# ====================== Routes ======================
+
+	//====================== Assigne Subject ======================
+
+	Route::get('/Assigne/subject/view',[AssigneSubjectCon::class,'view_assigne_sub'])->name('Assigne.subject.view');
+
+	//Add Assigne Subject 
+	Route::get('/Assigne/Subject/add',[AssigneSubjectCon::class,'add_assigne_sub'])->name('assigne.subject.add');
+
+	//store Assigne Subject 
+	Route::post('/Assigne/Subject/store',[AssigneSubjectCon::class,'store_assigne_sub'])->name('store.assign.subject');
+
+	//fee amountedit 
+	Route::get('/Assigne/Subject/edit/{class_id}',[AssigneSubjectCon::class,'assign_sub_edit'])->name('assign.subject.edit');
+
+	//Fee Subject update
+	Route::post('/Assigne/Subject/update/{class_id}',[AssigneSubjectCon::class,'assign_sub_update'])->name('update.assign.subject');
+
+	//fee Subject detail
+	Route::get('/Assigne/Subject/details/{class_id}',[AssigneSubjectCon::class,'assign_sub_detail'])->name('assign.subject.details');
+
+End Assign Subject section 
+-------------------------------------------------------------------------------
+For view page code Check assigne_sub/.... and school_subject
+-------------------------------------------------------------------------------

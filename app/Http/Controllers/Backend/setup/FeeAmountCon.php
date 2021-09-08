@@ -99,7 +99,7 @@ return redirect()->route('fee.Amount.view')->with($notification);
 
     //details  fee amount 
     public function fee_Amt_detail($fee_category_id){
-         $data['detailData'] = FeeCatAmount::where('fee_category_id',$fee_category_id)->orderBy('class_id','asc')->get();
+            $data['detailData'] = FeeCatAmount::where('fee_category_id',$fee_category_id)->orderBy('class_id','asc')->get();
          return view('backend.setup.fee_amount.details_fee_amt',$data);
 
     } 

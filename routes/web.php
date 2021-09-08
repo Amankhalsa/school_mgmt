@@ -11,6 +11,12 @@ use App\Http\Controllers\Backend\setup\StudentShiftCon;
 use App\Http\Controllers\Backend\setup\FeeCategoryCon;
 use App\Http\Controllers\Backend\setup\FeeAmountCon;
 use App\Http\Controllers\Backend\setup\ExamTypeCon;
+use App\Http\Controllers\Backend\setup\SchoolSubjectCon;
+use App\Http\Controllers\Backend\setup\AssigneSubjectCon;
+
+
+
+
 
 
 
@@ -225,5 +231,38 @@ Route::post('/exam/type/update/{id}',[ExamTypeCon::class,'update_exam_type'])->n
 
 //delete exam type 
 Route::get('/exam/type/delete/{id}',[ExamTypeCon::class,'delete_exam_type'])->name('exam.type.delete');
+
+//======================== School subject routes =======================
+//View subject 
+Route::get('/school/subject/view',[SchoolSubjectCon::class,'view_subject'])->name('school.subject.view');
+//add subject 
+Route::get('/school/subject/add',[SchoolSubjectCon::class,'add_subject'])->name('School.Subject.add');
+// store subject 
+Route::post('/school/subject/store',[SchoolSubjectCon::class,'store_subject'])->name('store.school.Subject');
+//edit subject
+Route::get('/school/subject/edit/{id}',[SchoolSubjectCon::class,'edit_subject'])->name('school.subject.edit');
+//Update 
+Route::post('/school/subject/update/{id}',[SchoolSubjectCon::class,'update_subject'])->name('update.school.subject');
+//Delete 
+Route::get('/school/subject/delete/{id}',[SchoolSubjectCon::class,'delete_subject'])->name('school.subject.delete');
+
+//============================= Assigne Subject =============================
+Route::get('/Assigne/subject/view',[AssigneSubjectCon::class,'view_assigne_sub'])->name('Assigne.subject.view');
+
+//Add Assigne Subject 
+Route::get('/Assigne/Subject/add',[AssigneSubjectCon::class,'add_assigne_sub'])->name('assigne.subject.add');
+
+//store Assigne Subject 
+Route::post('/Assigne/Subject/store',[AssigneSubjectCon::class,'store_assigne_sub'])->name('store.assign.subject');
+
+//fee amountedit 
+Route::get('/Assigne/Subject/edit/{class_id}',[AssigneSubjectCon::class,'assign_sub_edit'])->name('assign.subject.edit');
+
+//Fee Subject update
+Route::post('/Assigne/Subject/update/{class_id}',[AssigneSubjectCon::class,'assign_sub_update'])->name('update.assign.subject');
+
+//fee Subject detail
+Route::get('/Assigne/Subject/details/{class_id}',[AssigneSubjectCon::class,'assign_sub_detail'])->name('assign.subject.details');
+
 
 		});
