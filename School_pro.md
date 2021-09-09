@@ -1354,3 +1354,95 @@ End Assign Subject section
 -------------------------------------------------------------------------------
 For view page code Check assigne_sub/.... and school_subject
 -------------------------------------------------------------------------------
+
+# ================  Designation Controller  ================
+	
+	Model and Controller Class should be needed 
+	View page should be updated with View, edit & add
+
+	//View Designation 
+	public function view_designation(){
+	$data['allData']= Designation::all();
+	return view('backend.setup.Designation.view_designation',$data);
+	}
+
+	//add Designation 
+	public function add_designation(){
+	return view('backend.setup.Designation.add_designation');
+	}
+
+	//Store designation
+	public function store_designation(Request $request){
+	$validated = $request->validate([
+	'name' => 'required|unique:designations,name',
+	]);  // Ref link=> https://laravel.com/docs/8.x/validation#introduction
+
+	$data= new Designation();
+	$data->name =$request->name;
+	$data->save();
+	$notification = array(
+	'message' => 'Designation inserted successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('designation.view')->with($notification);
+	}
+
+	//Edit Designation
+	public function edit_designation($id){
+	$editData=Designation::find($id);
+	return view('backend.setup.Designation.edit_designation',compact('editData'));
+	}
+
+	// Update Designation 
+	public function update_designation(Request $request,$id){
+	$data= Designation::find($id);
+	$validated = $request->validate([
+	'name' => 'required|unique:designations,name,'.$data->id
+	]);  // Ref link=> https://laravel.com/docs/8.x/validation#introduction
+
+	$data->name =$request->name;
+	$data->save();
+	$notification = array(
+	'message' => 'Designation Updated successfully',
+	'alert-type' => 'success'
+	);
+	return redirect()->route('designation.view')->with($notification);
+	}
+
+	//Delete Designation
+	public function delete_designation($id){
+	$user= Designation::find($id);
+	$user->delete();
+	$notification = array(
+	'message' => 'Designation Deleted successfully',
+	'alert-type' => 'info'
+	);
+	return redirect()->route('designation.view')->with($notification);
+	}
+
+# Designation Routes :
+	//================ Designation All routes ================
+
+	//View subject 
+	Route::get('/designation/view',[DesignationCont::class,'view_designation'])->name('designation.view');
+
+	// //add designation 
+	Route::get('/designation/add',[DesignationCont::class,'add_designation'])->name('designation.add');
+
+	//store designation 
+	Route::post('/designation/store',[DesignationCont::class,'store_designation'])->name('store.designation');
+
+	//edit designation
+	Route::get('/designation/edit/{id}',[DesignationCont::class,'edit_designation'])->name('designation.edit');
+
+	//Update designation
+	Route::post('/designation/update/{id}',[DesignationCont::class,'update_designation'])->name('update.designation');
+
+	// //Delete designation
+	Route::get('/designation/delete/{id}',[DesignationCont::class,'delete_designation'])->name('designation.delete');
+End designation section 
+-------------------------------------------------------------------------------
+designation End designation section 
+-------------------------------------------------------------------------------
+
+

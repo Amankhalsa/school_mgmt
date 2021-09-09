@@ -13,7 +13,7 @@ use App\Http\Controllers\Backend\setup\FeeAmountCon;
 use App\Http\Controllers\Backend\setup\ExamTypeCon;
 use App\Http\Controllers\Backend\setup\SchoolSubjectCon;
 use App\Http\Controllers\Backend\setup\AssigneSubjectCon;
-
+use App\Http\Controllers\Backend\setup\DesignationCont;
 
 
 
@@ -263,6 +263,23 @@ Route::post('/Assigne/Subject/update/{class_id}',[AssigneSubjectCon::class,'assi
 
 //fee Subject detail
 Route::get('/Assigne/Subject/details/{class_id}',[AssigneSubjectCon::class,'assign_sub_detail'])->name('assign.subject.details');
+
+
+
+//================ Designation All routes ================
+//View subject 
+Route::get('/designation/view',[DesignationCont::class,'view_designation'])->name('designation.view');
+// //add designation 
+Route::get('/designation/add',[DesignationCont::class,'add_designation'])->name('designation.add');
+//store designation 
+Route::post('/designation/store',[DesignationCont::class,'store_designation'])->name('store.designation');
+//edit designation
+Route::get('/designation/edit/{id}',[DesignationCont::class,'edit_designation'])->name('designation.edit');
+//Update designation
+Route::post('/designation/update/{id}',[DesignationCont::class,'update_designation'])->name('update.designation');
+// //Delete designation
+Route::get('/designation/delete/{id}',[DesignationCont::class,'delete_designation'])->name('designation.delete');
+
 
 
 		});

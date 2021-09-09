@@ -66,19 +66,23 @@ $route  = Route::current()->getName();
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('student.class.view')}}"><i class="ti-more"></i>Student Class</a></li>
-          
-           <li><a href="{{route('student.year.view')}}"><i class="ti-more"></i>Student year</a></li>
+<li><a href="{{route('student.class.view')}}"><i class="ti-more"></i>Student Class</a></li>
 
-           <li><a href="{{route('student.group.view')}}"><i class="ti-more"></i>Student Group</a></li>
+<li><a href="{{route('student.year.view')}}"><i class="ti-more"></i>Student year</a></li>
 
-          <li><a href="{{route('student.shift.view')}}"><i class="ti-more"></i>Student shift</a></li>
+<li><a href="{{route('student.group.view')}}"><i class="ti-more"></i>Student Group</a></li>
 
-          <li><a href="{{route('fee.Category.view')}}"><i class="ti-more"></i>Fee Category</a></li>
-              <li><a href="{{route('fee.Amount.view')}}"><i class="ti-more"></i>Fee Category Amount</a></li>
-                <li><a href="{{route('exam.type.view')}}"><i class="ti-more"></i>Exam Type</a></li>
-                <li><a href="{{route('school.subject.view')}}"><i class="ti-more"></i>Add Subject </a></li>
-                <li><a href="{{route('Assigne.subject.view')}}"><i class="ti-more"></i>Assigne Subject </a></li>
+<li><a href="{{route('student.shift.view')}}"><i class="ti-more"></i>Student shift</a></li>
+
+<li><a href="{{route('fee.Category.view')}}"><i class="ti-more"></i>Fee Category</a></li>
+<li><a href="{{route('fee.Amount.view')}}"><i class="ti-more"></i>Fee Category Amount</a></li>
+<li><a href="{{route('exam.type.view')}}"><i class="ti-more"></i>Exam Type</a></li>
+<li><a href="{{route('school.subject.view')}}"><i class="ti-more"></i>Add Subject </a></li>
+<li><a href="{{route('Assigne.subject.view')}}"><i class="ti-more"></i>Assigne Subject </a></li>
+<li>
+  <a href="{{route('designation.view')}}"><i class="ti-more"></i>Designation </a></li>
+
+
           </ul>
         </li>
         
