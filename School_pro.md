@@ -1444,5 +1444,19 @@ End designation section
 -------------------------------------------------------------------------------
 designation End designation section 
 -------------------------------------------------------------------------------
+# Iablen you want to update DB fields by migration file 
+
+* 1st add new fields in migration file and save properly 
+* Save all  old data  
+* 2nd run roll back command for delete user table from DB 
+* php artisan migrate:rollback
+* after that insert table run this 
+* php artisan migrate
 
 
+# Add Condition 
+
+     @if(Auth::user()->role == 'admin')
+
+        add here data for special person and another
+    @endif

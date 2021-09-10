@@ -14,9 +14,8 @@ use App\Http\Controllers\Backend\setup\ExamTypeCon;
 use App\Http\Controllers\Backend\setup\SchoolSubjectCon;
 use App\Http\Controllers\Backend\setup\AssigneSubjectCon;
 use App\Http\Controllers\Backend\setup\DesignationCont;
-
-
-
+//Student Reg Controller 
+use App\Http\Controllers\Backend\student\StudentRegCont;
 
 
 
@@ -281,5 +280,12 @@ Route::post('/designation/update/{id}',[DesignationCont::class,'update_designati
 Route::get('/designation/delete/{id}',[DesignationCont::class,'delete_designation'])->name('designation.delete');
 
 
+
+		});
+
+
+Route::prefix('students')->group(function(){
+
+Route::get('/registraion/view',[StudentRegCont::class,'view_registraion'])->name('student.registraion.view');
 
 		});

@@ -5,14 +5,14 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Auth;
 class UserCon extends Controller
 {
     //
     public function user_view(){
     		// $allData= User::all();
     	//Another way :->
-    	$data['allData']=User::all();
+    	$data['allData']=User::where('usertype','Admin')->get();
     		// return view('backend.user.view_user',compact('allData'));
     	//New fromat->
               $notification = array(
@@ -38,10 +38,14 @@ class UserCon extends Controller
         ]);
 
         $data = new User();
-        $data->usertype = $request->usertype;
+        $code= rand(0000,9999);
+
+        $data->usertype = 'Admin';
+        $data->role = $request->role;
         $data->name = $request->name;
         $data->email = $request->email;
-        $data->password = bcrypt($request->password);
+        $data->password = bcrypt($code);
+        $data->code=$code;
         $data->save();
         $notification = array(
         'message' => 'User login successfully',
@@ -54,15 +58,32 @@ class UserCon extends Controller
 
     //edit
     public function user_edit($id){
-            $editdata=User::find($id);
+
+        $editdata=User::find($id);
+        if(Auth::user()->role =='Admin'){
+       
             return view('backend.user.edit_user',compact('editdata'));
+               } //if end 
+        
+        else{
+        $notification = array(
+        'message' => 'Sorry you not Permission for Edit',
+        'alert-type' => 'error'
+        );
+
+        return redirect()->route('user.view')->with($notification);
+}//else end 
+
     } 
 //update user detail 
     public function user_update(Request $request, $id){
-       $data = User::find($id);
-        $data->usertype = $request->usertype;
+        
+
+
+       $data = User::find($id); 
         $data->name = $request->name;
         $data->email = $request->email;
+        $data->role = $request->role;
 
         $data->save();
         $notification = array(
@@ -72,7 +93,10 @@ class UserCon extends Controller
         return redirect()->route('user.view')->with($notification);
 
 
+ 
+
     }
+
 
     // delete user 
     public function user_delete($id){

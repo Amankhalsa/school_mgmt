@@ -32,10 +32,10 @@
 	<div class="form-group">
 		<h5>Select User Role <span class="text-danger">*</span></h5>
 		<div class="controls">
-				<select name="usertype" id="select" required="" class="form-control">
+				<select name="role"  required="" class="form-control">
 				<option value="" selected="" disabled="">Select Role</option>
-<option value="Admin" {{($editdata->usertype == "Admin" ? "selected": "")}}>Admin</option>
-<option value="user" {{($editdata->usertype == "user" ? "selected": "")}}>user</option>
+<option value="Admin" {{($editdata->role == "Admin" ? "selected": "")}}>Admin</option>
+<option value="operator" {{($editdata->role == "operator" ? "selected": "")}}>operator</option>
 				</select>
 		</div>
 	</div>

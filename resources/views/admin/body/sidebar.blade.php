@@ -42,7 +42,7 @@ $route  = Route::current()->getName();
             <li><a href="{{route('users.add')}}"><i class="ti-more"></i>Add user</a></li>
           </ul>
         </li> 
-      
+      @if(Auth::user()->role == 'Admin')
         <li class="treeview {{($prefix == '/profile') ? 'active':''}}">
           <a href="#">
             <i data-feather="mail"></i> <span>Manage Profile</span>
@@ -56,7 +56,7 @@ $route  = Route::current()->getName();
            
           </ul>
         </li>
-    
+    @endif
 <!--// setup management  -->
      <li class="treeview {{($prefix == '/setups') ? 'active':''}}">
           <a href="#">
@@ -84,8 +84,29 @@ $route  = Route::current()->getName();
 
 
           </ul>
+
         </li>
-        
+    
+<!--// students management  -->
+     <li class="treeview {{($prefix == '/students') ? 'active':''}}">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Student Management </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+<li><a href="{{route('student.registraion.view')}}"><i class="ti-more"></i>Student Registraion</a></li>
+
+
+          </ul>
+
+        </li>
+    
+
+
+
+
         <li class="header nav-small-cap">User Interface</li>
       
         <li class="treeview">
