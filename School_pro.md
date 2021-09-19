@@ -1460,3 +1460,4 @@ designation End designation section
 
         add here data for special person and another
     @endif
+8. Student Registration Part 8 done

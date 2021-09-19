@@ -288,4 +288,12 @@ Route::prefix('students')->group(function(){
 
 Route::get('/registraion/view',[StudentRegCont::class,'view_registraion'])->name('student.registraion.view');
 
+//add student  registration 
+Route::get('/registraion/add',[StudentRegCont::class,'student_reg_add'])->name('student.registration.add');
+
+//store student registration 
+Route::post('/registraion/store',[StudentRegCont::class,'student_reg_store'])->name('store.student.registration');
+
+
+//student.registration.add
 		});
