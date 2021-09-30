@@ -60,7 +60,7 @@
 	<div class="form-group">
 			<h5>Mobile <span class="text-danger">*</span></h5>
 			<div class="controls">
-			<input  type="text" name="mobile" class="form-control"  required="">
+			<input  type="text" name="mobile" class="form-control"  required="" maxlength="10">
 			</div>
 	</div>
 
@@ -117,7 +117,7 @@
 	<div class="col-md-4"><!-- start  col md 4 -->
 		
 	<div class="form-group">
-		<h5>Discount  Name<span class="text-danger">*</span></h5>
+		<h5>Discount  Name<span class="text-danger"></span></h5>
 		<div class="controls">
 		<input  type="text" name="discount" class="form-control" required="">
 			</div>
@@ -132,7 +132,7 @@
 	<div class="col-md-4"><!-- start  col md 4 -->
 		
 	<div class="form-group">
-			<h5>Class <span class="text-danger">*</span></h5>
+			<h5>Class <span class="text-danger"></span></h5>
 			<div class="controls">
 				<select name="class_id" required="" class="form-control">
 				<option value="" selected="" disabled="">Select Class</option>	
@@ -145,8 +145,7 @@
 	</div> <!-- end col md 4 -->
 
 
-		<div class="col-md-4"><!-- start  col md 4 -->
-		
+		<div class="col-md-4"><!-- start  col md 4 -->	
 	<div class="form-group">
 			<h5>Year  <span class="text-danger">*</span></h5>
 			<div class="controls">
@@ -158,7 +157,6 @@
 				</select>
 			</div>
 	</div>
-
 	</div> <!-- end col md 4 -->
 	<div class="col-md-4"><!-- start  col md 4 -->		
 	<div class="form-group">

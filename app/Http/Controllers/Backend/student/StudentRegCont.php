@@ -17,14 +17,40 @@ class StudentRegCont extends Controller
 {
     //View Registraion
     public function view_registraion(){
-    	$data['allData']=AssignStudent::all();
-    	return view('backend.student.student_reg.student_view',$data);
+        
+        $data['years']=StudentYear::all();
+        $data['classes']=StudentClass::all();
+
+        $data['year_id']=StudentYear::orderBy('id','desc')->first()->id;
+      
+        $data['class_id']=StudentClass::orderBy('id','desc')->first()->id;
+          // dd($data['class_id']);
+        $data['allData']=AssignStudent::where('year_id', $data['year_id'])->where('class_id',$data['class_id'])->get();
+        // $data['allData']=AssignStudent::all();
+    	return view('backend.student.student_reg.student_view', $data);
 
     }
+public function student_year_class_wise(Request $request){
+        $data['years']=StudentYear::all();
+        $data['classes']=StudentClass::all();
+
+        $data['year_id']=$request->year_id;
+      
+        $data['class_id']=$request->class_id;;
+          // dd($data['class_id']);
+        $data['allData']=AssignStudent::where('year_id', $request->year_id)->where('class_id',
+            $request->class_id)->get();
+        // $data['allData']=AssignStudent::all();
+        return view('backend.student.student_reg.student_view', $data);
+}
+
+
     public function student_reg_add(){
 
     	$data['years']=StudentYear::all();
     	$data['classes']=StudentClass::all();
+
+
     	$data['groups']=StudentGroup::all();
     	$data['shifts']=StudentShift::all();
     	return view('backend.student.student_reg.student_add',$data);
@@ -128,4 +154,7 @@ class StudentRegCont extends Controller
 
         return redirect()->route('student.registraion.view')->with($notification);
     }//end method 
+
+
+
 }

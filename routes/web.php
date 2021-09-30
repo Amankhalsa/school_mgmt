@@ -294,6 +294,7 @@ Route::get('/registraion/add',[StudentRegCont::class,'student_reg_add'])->name('
 //store student registration 
 Route::post('/registraion/store',[StudentRegCont::class,'student_reg_store'])->name('store.student.registration');
 
+Route::get('/year/class/wise',[StudentRegCont::class,'student_year_class_wise'])->name('student.year.class.wise');
 
 //student.registration.add
 		});
