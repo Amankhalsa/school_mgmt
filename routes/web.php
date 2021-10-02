@@ -297,4 +297,17 @@ Route::post('/registraion/store',[StudentRegCont::class,'student_reg_store'])->n
 Route::get('/year/class/wise',[StudentRegCont::class,'student_year_class_wise'])->name('student.year.class.wise');
 
 //student.registration.add
+
+// student registration edit 
+Route::get('/registration/edit/{student_id}',[StudentRegCont::class,'student_reg_edit'])->name('student.registration.edit');
+
+// update student registration
+Route::post('/registration/update/{student_id}',[StudentRegCont::class,'student_reg_update'])->name('update.student.registration');
+
+// student registration promotion
+Route::get('/registration/promotion/{student_id}',[StudentRegCont::class,'student_reg_promotion'])->name('student.registration.promotion');
+
+Route::post('/registration/update/promotion/{student_id}',[StudentRegCont::class,'student_reg_update_promotion'])->name('promotion.student.registration');
+
+// promotion student registration
 		});

@@ -1,6 +1,11 @@
+
+ 
 @extends('admin.admin_master')
+
 @section('title', 'View Student')
+
 @section('admin')
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 	  <div class="container-full">
@@ -120,9 +125,9 @@
 					<td>{{$value['student']['code']}}</td>
 				
 					<td>
-<a href="" class="btn btn-info">Edit</a>
-<a href="" class="btn btn-danger" id="delete">Delete</a>
-
+<a href="{{route('student.registration.edit',$value->student_id)}}" class="btn btn-info">Edit</a>
+<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-danger" >Promotion</a>
+<!-- id="delete" -->
 
 					</td>
 					
@@ -176,8 +181,8 @@
 					<td>{{$value['student']['code']}}</td>
 				
 					<td>
-<a href="" class="btn btn-info">Edit</a>
-<a href="" class="btn btn-danger" id="delete">Delete</a>
+<a href="{{route('student.registration.edit',$value->student_id)}}" class="btn btn-info">Edit</a>
+<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-danger" >Promotion</a>
 
 
 					</td>
