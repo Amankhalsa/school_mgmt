@@ -126,7 +126,9 @@
 				
 					<td>
 <a href="{{route('student.registration.edit',$value->student_id)}}" class="btn btn-info">Edit</a>
-<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-danger" >Promotion</a>
+<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-success" ><i class="fa fa-check"></i></a>
+<a target="_blank" title="Details" href="{{ route('student.registration.details',$value->student_id) }}" class="btn btn-danger"  ><i class="fa fa-eye"></i></a>
+
 <!-- id="delete" -->
 
 					</td>
@@ -182,7 +184,8 @@
 				
 					<td>
 <a href="{{route('student.registration.edit',$value->student_id)}}" class="btn btn-info">Edit</a>
-<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-danger" >Promotion</a>
+<a href="{{route('student.registration.promotion',$value->student_id)}}" class="btn btn-success" ><i class="fa fa-check"></i></a>
+<a target="_blank" title="Details" href="{{ route('student.registration.details',$value->student_id) }}" class="btn btn-danger"  ><i class="fa fa-eye"></i></a>
 
 
 					</td>

@@ -310,4 +310,11 @@ Route::get('/registration/promotion/{student_id}',[StudentRegCont::class,'studen
 Route::post('/registration/update/promotion/{student_id}',[StudentRegCont::class,'student_reg_update_promotion'])->name('promotion.student.registration');
 
 // promotion student registration
+
+
+
+// student registration details
+Route::get('/registration/details/{student_id}',[StudentRegCont::class,'student_reg_details'])->name('student.registration.details');
+
+
 		});

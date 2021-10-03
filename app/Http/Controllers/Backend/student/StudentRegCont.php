@@ -12,7 +12,7 @@ use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use App\Models\StudentShift;
 use DB;
-
+use PDF;
 class StudentRegCont extends Controller
 {
     //View Registraion
@@ -299,6 +299,16 @@ public function student_reg_promotion($student_id){
 
         return redirect()->route('student.registraion.view')->with($notification);
     }//end method 
+
+// student detail view 
+    public function student_reg_details($student_id){
+   $data['details']=AssignStudent::with(['student','discount'])->where('student_id',$student_id)->first();
+     $pdf = PDF::loadView('backend.student.student_reg.student_details_pdf', $data);
+    $pdf->SetProtection(['copy', 'print'], '', 'pass');
+    return $pdf->stream('document.pdf');
+    }
+
+
 
 
 }

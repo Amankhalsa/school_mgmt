@@ -1461,3 +1461,18 @@ designation End designation section
         add here data for special person and another
     @endif
 8. Student Registration Part 13 fully done
+
+For pdf package :
+
+change memory linit -1  from php ini
+
+memory_limit=-1
+
+composer require niklasravnsborg/laravel-pdf
+goto config app.php file 
+for check package 
+ 	1		Composer dump-autoload 
+for clean cache
+	2		php artisan config:cache
+	3		php artisan cache:clear 
+    4 		php artisan view:clear 
