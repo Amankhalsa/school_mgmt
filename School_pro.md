@@ -1476,3 +1476,4 @@ for clean cache
 	2		php artisan config:cache
 	3		php artisan cache:clear 
     4 		php artisan view:clear 
+roll genrate  2. Students Roll Generate Part 2 done

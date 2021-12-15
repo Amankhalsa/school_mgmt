@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\setup\DesignationCont;
 //Student Reg Controller 
 use App\Http\Controllers\Backend\student\StudentRegCont;
 
+use App\Http\Controllers\Backend\student\StudentRollCon;
 
 
 
@@ -315,6 +316,11 @@ Route::post('/registration/update/promotion/{student_id}',[StudentRegCont::class
 
 // student registration details
 Route::get('/registration/details/{student_id}',[StudentRegCont::class,'student_reg_details'])->name('student.registration.details');
+// student roll genrate route 
+Route::get('/roll/genrate/view',[StudentRollCon::class,'student_roll_view'])->name('roll.genrate.view');
 
+Route::get('/roll/getstudent',[StudentRollCon::class,'getstudent'])->name('student.registration.getstudent');
+
+// student.registration.getstudents
 
 		});
